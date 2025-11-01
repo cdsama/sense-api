@@ -1,0 +1,16 @@
+[project]
+name = "funasrsensevoice"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.120.4",
+    "funasr>=1.2.7",
+    "gradio>=5.49.1",
+    "pydub>=0.25.1",
+    "python-multipart>=0.0.20",
+    "torch==2.7.0",
+    "torchaudio==2.7.0",
+    "uvicorn>=0.38.0",
+]

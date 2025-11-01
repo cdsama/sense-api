@@ -1,5 +1,5 @@
 @echo off
 
-call %cd%\\runtime\\python.exe api.py
+uv run api.py
 
 pause
