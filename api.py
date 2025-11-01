@@ -106,9 +106,9 @@ async def root():
     """
 
 @app.post("/asr")
-async def asr(file: UploadFile, lang: str = Form(...)):
+async def asr(file: UploadFile, lang: str = Form(default='auto')):
     print(f'{lang=},{file.filename=}')
-    if lang not in ['zh','ja','en','ko','yue']:
+    if lang not in ['auto','zh','ja','en','ko','yue']:
         return {"code":1,"msg":f'不支持的语言代码:{lang}'}
     # 创建一个临时文件路径
     temp_file_path = f"{TMPDIR}/{file.filename}"
@@ -131,6 +131,9 @@ async def asr(file: UploadFile, lang: str = Form(...)):
         text = remove_unwanted_characters(rich_transcription_postprocess(res[0]["text"]))
         print(f'{text=}')
         srts.append(f'{len(srts)+1}\n{ms_to_time_string(ms=seg[0])} --> {ms_to_time_string(ms=seg[1])}\n{text.strip()}')
+        os.remove(filename)
+    # 删除临时文件
+    os.remove(temp_file_path)
     return {"code":0,"msg":"ok","data":"\n\n".join(srts)}
 
 
